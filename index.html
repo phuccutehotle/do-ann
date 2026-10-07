@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LUMIÈRE Food - Cửa hàng đồ ăn cao cấp">
+<title>LUMIÈRE Food | Đồ ăn ngon mỗi ngày</title>
+<style>
+:root{
+  --cream:#fffaf7;--rose:#b87e80;--rose-dark:#9c6266;--brown:#49332c;
+  --gold:#c99a57;--line:#eadbd5;--shadow:0 14px 40px rgba(73,51,44,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--brown);background:var(--cream);line-height:1.5}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer}
+.topbar{background:var(--rose);color:white;text-align:center;padding:10px;font-size:14px;letter-spacing:.4px}
+.topbar b{font-weight:800}
+header{background:rgba(255,250,247,.96);backdrop-filter:blur(12px);position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line)}
+.nav{max-width:1220px;margin:auto;height:82px;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:Georgia,serif;font-size:31px;letter-spacing:7px;color:var(--rose-dark)}
+.menu{display:flex;gap:31px;align-items:center;font-size:13px;letter-spacing:1.2px;text-transform:uppercase}
+.menu a{position:relative;padding:28px 0}
+.menu a:after{content:"";position:absolute;left:0;bottom:20px;width:0;height:1px;background:var(--rose-dark);transition:.25s}
+.menu a:hover:after,.menu a.active:after{width:100%}
+.icons{display:flex;gap:15px;align-items:center}
+.icon-btn{width:38px;height:38px;border:0;background:transparent;font-size:20px;color:var(--brown);position:relative}
+.cart-count{position:absolute;right:0;top:2px;background:var(--rose-dark);color:white;font-size:9px;width:16px;height:16px;border-radius:50%;display:grid;place-items:center}
+.hero{max-width:1220px;margin:34px auto 0;padding:0 28px}
+.hero-box{height:555px;border-radius:28px;overflow:hidden;position:relative;background:
+linear-gradient(90deg,rgba(94,53,39,.82) 0%,rgba(94,53,39,.43) 38%,rgba(94,53,39,.03) 70%),
+url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1800&q=90') center/cover}
+.hero-content{position:absolute;left:60px;top:50%;transform:translateY(-50%);color:white;max-width:510px}
+.eyebrow{font-size:12px;letter-spacing:5px;margin-bottom:18px}
+.hero h1{font-family:Georgia,serif;font-size:64px;line-height:1.05;font-weight:500;margin-bottom:20px}
+.hero h1 span{color:#ffe5bd}
+.hero p{font-size:16px;max-width:470px;margin-bottom:30px;color:#fff7f2}
+.btn{display:inline-block;border:1px solid white;padding:13px 23px;border-radius:2px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;transition:.2s}
+.btn:hover{background:white;color:var(--brown)}
+.btn.rose{border-color:var(--rose-dark);background:var(--rose-dark);color:white}
+.btn.rose:hover{background:#844e52}
+.section{max-width:1220px;margin:85px auto;padding:0 28px}
+.section-head{text-align:center;margin-bottom:38px}
+.kicker{color:var(--rose-dark);font-size:11px;letter-spacing:4px;text-transform:uppercase}
+.section h2{font-family:Georgia,serif;font-size:38px;font-weight:500;margin:8px 0}
+.section-head p{color:#88756e;font-size:14px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.cat{height:180px;position:relative;overflow:hidden;border-radius:8px;background:#ddd}
+.cat img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.cat:hover img{transform:scale(1.06)}
+.cat:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(35,20,15,.7))}
+.cat span{position:absolute;bottom:18px;left:20px;color:#fff;z-index:2;font-family:Georgia,serif;font-size:24px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 6px 22px rgba(73,51,44,.06);transition:.25s}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.card-img{height:235px;position:relative;background:#f2e8e2}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;left:12px;top:12px;background:#fff;color:var(--rose-dark);padding:6px 9px;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.card-body{padding:17px}
+.card h3{font-family:Georgia,serif;font-size:20px;font-weight:500;margin-bottom:5px}
+.card p{font-size:12px;color:#8d7a72;min-height:38px}
+.price-row{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.price{font-weight:700;color:var(--rose-dark)}
+.old{text-decoration:line-through;color:#aaa;font-size:12px;margin-right:6px;font-weight:400}
+.add{width:34px;height:34px;border:1px solid var(--rose);background:white;color:var(--rose-dark);border-radius:50%;font-size:19px}
+.add:hover{background:var(--rose-dark);color:white}
+.promo{display:grid;grid-template-columns:1.1fr .9fr;min-height:350px;background:#f0dfd5;border-radius:10px;overflow:hidden}
+.promo-img{background:url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1100&q=90') center/cover}
+.promo-content{padding:55px 55px;display:flex;flex-direction:column;justify-content:center}
+.promo-content h2{font-family:Georgia,serif;font-size:39px;font-weight:500;line-height:1.15;margin:9px 0 15px}
+.promo-content p{color:#7e6b63;margin-bottom:25px}
+footer{margin-top:90px;background:#45312b;color:#eee;padding:55px 28px 20px}
+.footer-inner{max-width:1220px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:45px}
+.footer-logo{font-family:Georgia,serif;letter-spacing:5px;font-size:25px;margin-bottom:15px}
+footer h4{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px;color:#fff}
+footer p,footer li{font-size:13px;color:#cdbeb7;line-height:1.9;list-style:none}
+.copy{max-width:1220px;margin:35px auto 0;border-top:1px solid #6b534a;padding-top:18px;text-align:center;font-size:11px;color:#a99289}
+.promo-page{max-width:1220px;margin:34px auto;padding:0 28px}
+.promo-title{text-align:center;padding:60px 20px;background:#f1e1d9;border-radius:12px}
+.promo-title h1{font-family:Georgia,serif;font-size:48px;font-weight:500}
+.promo-title p{color:#7d6961;margin-top:10px}
+.offer-grid{margin-top:35px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.offer{background:white;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.offer img{width:100%;height:230px;object-fit:cover}
+.offer-body{padding:22px}.offer-body small{color:var(--rose-dark);letter-spacing:2px}.offer-body h3{font-family:Georgia,serif;font-size:24px;font-weight:500;margin:8px 0}.offer-body p{font-size:13px;color:#88766e;margin-bottom:18px}
+@media(max-width:900px){
+ .menu{gap:13px}.menu a{font-size:11px}.products{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(2,1fr)}
+ .footer-inner{grid-template-columns:1fr 1fr}.promo{grid-template-columns:1fr}.promo-img{min-height:250px}
+}
+@media(max-width:600px){
+ .nav{height:auto;padding:16px 18px;flex-wrap:wrap;gap:12px}.logo{font-size:25px}.menu{order:3;width:100%;justify-content:center;overflow:auto}
+ .menu a{padding:8px 0}.menu a:after{bottom:0}.hero{padding:0 15px}.hero-box{height:500px}.hero-content{left:30px;right:25px}.hero h1{font-size:46px}
+ .section{padding:0 15px;margin:60px auto}.products,.categories,.offer-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="topbar">✦ <b>FREESHIP ĐƠN TỪ 199.000đ</b> · TẶNG QUÀ CHO ĐƠN HÀNG ĐẦU TIÊN</div>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="#home">LUMIÈRE</a>
+    <nav class="menu">
+      <a class="active" href="#home">Trang chủ</a>
+      <a href="#menu">Thực đơn</a>
+      <a href="#best">Món bán chạy</a>
+      <a href="#promo">Khuyến mãi</a>
+      <a href="#about">Về chúng tôi</a>
+    </nav>
+    <div class="icons">
+      <button class="icon-btn" onclick="document.getElementById('menu').scrollIntoView()">⌕</button>
+      <button class="icon-btn" onclick="alert('Giỏ hàng đang có 0 món.')">🛒<span class="cart-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+<section class="hero">
+  <div class="hero-box">
+    <div class="hero-content">
+      <div class="eyebrow">FOOD · TASTE · MOMENT</div>
+      <h1>Ngon theo<br><span>cách riêng.</span></h1>
+      <p>Khám phá những món ăn được chuẩn bị chỉn chu, nguyên liệu tươi ngon và hương vị khiến mỗi bữa ăn trở thành một khoảnh khắc đáng nhớ.</p>
+      <a class="btn" href="#menu">Khám phá thực đơn</a>
+      <a class="btn" href="#promo" style="margin-left:8px">Xem ưu đãi</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="menu">
+  <div class="section-head"><div class="kicker">Khám phá</div><h2>Danh mục món ăn</h2><p>Một chút tinh tế cho chiếc bụng đang biểu tình.</p></div>
+  <div class="categories">
+    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=85"><span>Pizza</span></a>
+    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=85"><span>Gà giòn</span></a>
+    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=85"><span>Đồ ăn vặt</span></a>
+    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=800&q=85"><span>Đồ uống</span></a>
+  </div>
+</section>
+
+<section class="section" id="best">
+  <div class="section-head"><div class="kicker">Được yêu thích</div><h2>Món bán chạy</h2><p>Những lựa chọn khiến khách quay lại nhanh hơn cả tốc độ hết đồ ăn trong tủ lạnh.</p></div>
+  <div class="products">
+    <article class="card"><div class="card-img"><span class="badge">Best seller</span><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Pizza phô mai</h3><p>Đế bánh thơm mềm, phô mai kéo sợi béo ngậy.</p><div class="price-row"><span class="price">79.000đ</span><button class="add" onclick="addCart('Pizza phô mai')">+</button></div></div></article>
+    <article class="card"><div class="card-img"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Gà rán giòn</h3><p>Lớp vỏ vàng giòn, thịt mềm và đậm vị.</p><div class="price-row"><span class="price">59.000đ</span><button class="add" onclick="addCart('Gà rán giòn')">+</button></div></div></article>
+    <article class="card"><div class="card-img"><span class="badge">Yêu thích</span><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Há cảo hấp</h3><p>Vỏ mềm, nhân đầy đặn, dùng nóng cùng sốt đặc biệt.</p><div class="price-row"><span class="price">45.000đ</span><button class="add" onclick="addCart('Há cảo hấp')">+</button></div></div></article>
+    <article class="card"><div class="card-img"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Trà đào cam sả</h3><p>Thanh mát, thơm dịu, giải khát cực hợp với đồ ăn.</p><div class="price-row"><span class="price">39.000đ</span><button class="add" onclick="addCart('Trà đào cam sả')">+</button></div></div></article>
+  </div>
+</section>
+
+<section class="section" id="promo">
+  <div class="promo">
+    <div class="promo-img"></div>
+    <div class="promo-content">
+      <div class="kicker">Ưu đãi đặc biệt</div>
+      <h2>Ăn ngon hơn,<br>giá nhẹ hơn.</h2>
+      <p>Giảm đến <b>30%</b> cho các món được chọn. Freeship đơn từ 199.000đ và tặng quà cho đơn hàng đầu tiên.</p>
+      <div><a class="btn rose" href="#offers">Xem sản phẩm khuyến mãi</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="promo-page" id="offers">
+  <div class="promo-title"><div class="kicker">Special offers</div><h1>Sản phẩm khuyến mãi</h1><p>Ưu đãi có hạn. Bởi vì con người rất thích chữ “hạn”.</p></div>
+  <div class="offer-grid">
+    <article class="offer"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 20%</small><h3>Combo Pizza</h3><p>Pizza phô mai + nước ngọt.</p><a class="btn rose" href="#best">Mua ngay</a></div></article>
+    <article class="offer"><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 15%</small><h3>Combo Gà rán</h3><p>2 miếng gà + khoai + nước.</p><a class="btn rose" href="#best">Mua ngay</a></div></article>
+    <article class="offer"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 30%</small><h3>Khoai giờ vàng</h3><p>Ưu đãi từ 14:00 đến 17:00 mỗi ngày.</p><a class="btn rose" href="#best">Mua ngay</a></div></article>
+  </div>
+</section>
+</main>
+
+<footer id="about">
+  <div class="footer-inner">
+    <div><div class="footer-logo">LUMIÈRE FOOD</div><p>Không gian ẩm thực hiện đại dành cho những người thích ăn ngon và thích giao diện đẹp.</p></div>
+    <div><h4>Khám phá</h4><ul><li><a href="#menu">Thực đơn</a></li><li><a href="#best">Món bán chạy</a></li><li><a href="#promo">Khuyến mãi</a></li></ul></div>
+    <div><h4>Hỗ trợ</h4><ul><li>Chính sách giao hàng</li><li>Đổi trả & hoàn tiền</li><li>Liên hệ</li></ul></div>
+    <div><h4>Liên hệ</h4><p>TP. Hồ Chí Minh</p><p>0901 234 567</p><p>hello@lumierefood.vn</p></div>
+  </div>
+  <div class="copy">© 2026 LUMIÈRE Food. Website demo bán đồ ăn.</div>
+</footer>
+
+<script>
+let count=0;
+function addCart(name){
+  count++;
+  document.querySelector('.cart-count').textContent=count;
+  alert(name+' đã được thêm vào giỏ hàng!');
+}
+</script>
+</body>
+</html>
