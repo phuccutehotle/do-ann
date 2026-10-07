@@ -93,6 +93,29 @@ footer p,footer li{font-size:13px;color:#cdbeb7;line-height:1.9;list-style:none}
  .menu a{padding:8px 0}.menu a:after{bottom:0}.hero{padding:0 15px}.hero-box{height:500px}.hero-content{left:30px;right:25px}.hero h1{font-size:46px}
  .section{padding:0 15px;margin:60px auto}.products,.categories,.offer-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}
 }
+
+.actions{display:flex;align-items:center;gap:8px}
+.detail{border:1px solid var(--line);background:#fff;color:var(--rose-dark);padding:7px 10px;border-radius:3px;font-size:10px;letter-spacing:.7px;text-transform:uppercase}
+.detail:hover{background:#f8eeea}
+.cart-drawer{position:fixed;inset:0;z-index:100;display:none}
+.cart-drawer.open{display:block}
+.cart-backdrop{position:absolute;inset:0;background:rgba(45,27,22,.45)}
+.cart-panel{position:absolute;right:0;top:0;height:100%;width:min(410px,92vw);background:#fffaf7;padding:28px;box-shadow:-12px 0 35px rgba(0,0,0,.16);overflow:auto}
+.cart-panel h2{font-family:Georgia,serif;font-size:30px;font-weight:500}
+.cart-close{float:right;border:0;background:transparent;font-size:25px}
+.cart-items{margin:25px 0}
+.cart-item{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding:15px 0;font-size:14px}
+.cart-empty{text-align:center;color:#8d7a72;padding:35px 0}
+.cart-total{display:flex;justify-content:space-between;font-weight:700;border-top:1px solid var(--line);padding-top:18px;margin-top:10px}
+.checkout{width:100%;margin-top:18px;border:0;background:var(--rose-dark);color:#fff;padding:14px;text-transform:uppercase;letter-spacing:1.5px}
+.product-modal{position:fixed;inset:0;z-index:110;display:none;place-items:center;padding:20px}
+.product-modal.open{display:grid}
+.product-modal .modal-bg{position:absolute;inset:0;background:rgba(45,27,22,.5)}
+.product-box{position:relative;background:#fffaf7;width:min(480px,94vw);padding:35px;border-radius:8px;box-shadow:var(--shadow)}
+.product-box h2{font-family:Georgia,serif;font-weight:500;font-size:32px}
+.product-box p{color:#806e66;margin:12px 0 20px}
+.product-close{position:absolute;right:18px;top:12px;border:0;background:transparent;font-size:25px}
+@media(max-width:600px){.actions{gap:5px}.detail{padding:6px 7px}}
 </style>
 </head>
 <body>
@@ -110,7 +133,7 @@ footer p,footer li{font-size:13px;color:#cdbeb7;line-height:1.9;list-style:none}
     </nav>
     <div class="icons">
       <button class="icon-btn" onclick="document.getElementById('menu').scrollIntoView()">⌕</button>
-      <button class="icon-btn" onclick="alert('Giỏ hàng đang có 0 món.')">🛒<span class="cart-count">0</span></button>
+      <button class="icon-btn" id="cartButton" onclick="openCart()" aria-label="Mở giỏ hàng">🛒<span class="cart-count">0</span></button>
     </div>
   </div>
 </header>
@@ -122,8 +145,8 @@ footer p,footer li{font-size:13px;color:#cdbeb7;line-height:1.9;list-style:none}
       <div class="eyebrow">FOOD · TASTE · MOMENT</div>
       <h1>Ngon theo<br><span>cách riêng.</span></h1>
       <p>Khám phá những món ăn được chuẩn bị chỉn chu, nguyên liệu tươi ngon và hương vị khiến mỗi bữa ăn trở thành một khoảnh khắc đáng nhớ.</p>
-      <a class="btn" href="#menu">Khám phá thực đơn</a>
-      <a class="btn" href="#promo" style="margin-left:8px">Xem ưu đãi</a>
+      <a class="btn" href="#menu" onclick="scrollToSection('menu');return false;">Khám phá thực đơn</a>
+      <a class="btn" href="#promo" style="margin-left:8px" onclick="scrollToSection('promo');return false;">Xem ưu đãi</a>
     </div>
   </div>
 </section>
@@ -131,20 +154,20 @@ footer p,footer li{font-size:13px;color:#cdbeb7;line-height:1.9;list-style:none}
 <section class="section" id="menu">
   <div class="section-head"><div class="kicker">Khám phá</div><h2>Danh mục món ăn</h2><p>Một chút tinh tế cho chiếc bụng đang biểu tình.</p></div>
   <div class="categories">
-    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=85"><span>Pizza</span></a>
-    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=85"><span>Gà giòn</span></a>
-    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=85"><span>Đồ ăn vặt</span></a>
-    <a class="cat" href="#best"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=800&q=85"><span>Đồ uống</span></a>
+    <a class="cat" href="#best" onclick="showCategory('Pizza');return false;"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=85"><span>Pizza →</span></a>
+    <a class="cat" href="#best" onclick="showCategory('Gà giòn');return false;"><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=85"><span>Gà giòn →</span></a>
+    <a class="cat" href="#best" onclick="showCategory('Đồ ăn vặt');return false;"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=85"><span>Đồ ăn vặt →</span></a>
+    <a class="cat" href="#best" onclick="showCategory('Đồ uống');return false;"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=800&q=85"><span>Đồ uống →</span></a>
   </div>
 </section>
 
 <section class="section" id="best">
   <div class="section-head"><div class="kicker">Được yêu thích</div><h2>Món bán chạy</h2><p>Những lựa chọn khiến khách quay lại nhanh hơn cả tốc độ hết đồ ăn trong tủ lạnh.</p></div>
   <div class="products">
-    <article class="card"><div class="card-img"><span class="badge">Best seller</span><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Pizza phô mai</h3><p>Đế bánh thơm mềm, phô mai kéo sợi béo ngậy.</p><div class="price-row"><span class="price">79.000đ</span><button class="add" onclick="addCart('Pizza phô mai')">+</button></div></div></article>
-    <article class="card"><div class="card-img"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Gà rán giòn</h3><p>Lớp vỏ vàng giòn, thịt mềm và đậm vị.</p><div class="price-row"><span class="price">59.000đ</span><button class="add" onclick="addCart('Gà rán giòn')">+</button></div></div></article>
-    <article class="card"><div class="card-img"><span class="badge">Yêu thích</span><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Há cảo hấp</h3><p>Vỏ mềm, nhân đầy đặn, dùng nóng cùng sốt đặc biệt.</p><div class="price-row"><span class="price">45.000đ</span><button class="add" onclick="addCart('Há cảo hấp')">+</button></div></div></article>
-    <article class="card"><div class="card-img"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Trà đào cam sả</h3><p>Thanh mát, thơm dịu, giải khát cực hợp với đồ ăn.</p><div class="price-row"><span class="price">39.000đ</span><button class="add" onclick="addCart('Trà đào cam sả')">+</button></div></div></article>
+    <article class="card"><div class="card-img"><span class="badge">Best seller</span><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Pizza phô mai</h3><p>Đế bánh thơm mềm, phô mai kéo sợi béo ngậy.</p><div class="price-row"><span class="price">79.000đ</span><div class="actions"><button class="detail" onclick="viewProduct('Pizza phô mai','79.000đ','Đế bánh thơm mềm, phô mai kéo sợi béo ngậy.')">Xem món</button><button class="add" onclick="addCart('Pizza phô mai','79.000đ')">+</button></div></div></div></article>
+    <article class="card"><div class="card-img"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Gà rán giòn</h3><p>Lớp vỏ vàng giòn, thịt mềm và đậm vị.</p><div class="price-row"><span class="price">59.000đ</span><div class="actions"><button class="detail" onclick="viewProduct('Gà rán giòn','59.000đ','Lớp vỏ vàng giòn, thịt mềm và đậm vị.')">Xem món</button><button class="add" onclick="addCart('Gà rán giòn','59.000đ')">+</button></div></div></div></article>
+    <article class="card"><div class="card-img"><span class="badge">Yêu thích</span><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Há cảo hấp</h3><p>Vỏ mềm, nhân đầy đặn, dùng nóng cùng sốt đặc biệt.</p><div class="price-row"><span class="price">45.000đ</span><div class="actions"><button class="detail" onclick="viewProduct('Há cảo hấp','45.000đ','Vỏ mềm, nhân đầy đặn, dùng nóng cùng sốt đặc biệt.')">Xem món</button><button class="add" onclick="addCart('Há cảo hấp','45.000đ')">+</button></div></div></div></article>
+    <article class="card"><div class="card-img"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85"></div><div class="card-body"><h3>Trà đào cam sả</h3><p>Thanh mát, thơm dịu, giải khát cực hợp với đồ ăn.</p><div class="price-row"><span class="price">39.000đ</span><div class="actions"><button class="detail" onclick="viewProduct('Trà đào cam sả','39.000đ','Thanh mát, thơm dịu, giải khát cực hợp với đồ ăn.')">Xem món</button><button class="add" onclick="addCart('Trà đào cam sả','39.000đ')">+</button></div></div></div></article>
   </div>
 </section>
 
@@ -163,12 +186,38 @@ footer p,footer li{font-size:13px;color:#cdbeb7;line-height:1.9;list-style:none}
 <section class="promo-page" id="offers">
   <div class="promo-title"><div class="kicker">Special offers</div><h1>Sản phẩm khuyến mãi</h1><p>Ưu đãi có hạn. Bởi vì con người rất thích chữ “hạn”.</p></div>
   <div class="offer-grid">
-    <article class="offer"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 20%</small><h3>Combo Pizza</h3><p>Pizza phô mai + nước ngọt.</p><a class="btn rose" href="#best">Mua ngay</a></div></article>
-    <article class="offer"><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 15%</small><h3>Combo Gà rán</h3><p>2 miếng gà + khoai + nước.</p><a class="btn rose" href="#best">Mua ngay</a></div></article>
-    <article class="offer"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 30%</small><h3>Khoai giờ vàng</h3><p>Ưu đãi từ 14:00 đến 17:00 mỗi ngày.</p><a class="btn rose" href="#best">Mua ngay</a></div></article>
+    <article class="offer"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 20%</small><h3>Combo Pizza</h3><p>Pizza phô mai + nước ngọt.</p><button class="btn rose" onclick="addCart('Combo khuyến mãi','79.000đ')">Mua ngay</button></div></article>
+    <article class="offer"><img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 15%</small><h3>Combo Gà rán</h3><p>2 miếng gà + khoai + nước.</p><button class="btn rose" onclick="addCart('Combo khuyến mãi','79.000đ')">Mua ngay</button></div></article>
+    <article class="offer"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85"><div class="offer-body"><small>GIẢM 30%</small><h3>Khoai giờ vàng</h3><p>Ưu đãi từ 14:00 đến 17:00 mỗi ngày.</p><button class="btn rose" onclick="addCart('Combo khuyến mãi','79.000đ')">Mua ngay</button></div></article>
   </div>
 </section>
 </main>
+
+
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-backdrop" onclick="closeCart()"></div>
+  <aside class="cart-panel">
+    <button class="cart-close" onclick="closeCart()">×</button>
+    <div class="kicker">YOUR ORDER</div>
+    <h2>Giỏ hàng</h2>
+    <div class="cart-items" id="cartItems"><div class="cart-empty">Giỏ hàng đang trống.</div></div>
+    <div class="cart-total"><span>Tạm tính</span><span id="cartTotal">0đ</span></div>
+    <button class="checkout" onclick="checkout()">Tiến hành đặt món</button>
+  </aside>
+</div>
+
+<div class="product-modal" id="productModal">
+  <div class="modal-bg" onclick="closeProduct()"></div>
+  <div class="product-box">
+    <button class="product-close" onclick="closeProduct()">×</button>
+    <div class="kicker">FOODIE FAVORITE</div>
+    <h2 id="productName"></h2>
+    <p id="productDesc"></p>
+    <strong class="price" id="productPrice"></strong>
+    <br><br>
+    <button class="btn rose" id="productAdd">Thêm vào giỏ</button>
+  </div>
+</div>
 
 <footer id="about">
   <div class="footer-inner">
@@ -181,12 +230,74 @@ footer p,footer li{font-size:13px;color:#cdbeb7;line-height:1.9;list-style:none}
 </footer>
 
 <script>
-let count=0;
-function addCart(name){
-  count++;
-  document.querySelector('.cart-count').textContent=count;
-  alert(name+' đã được thêm vào giỏ hàng!');
+let cart = [];
+
+function scrollToSection(id){
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
 }
+
+function addCart(name, price=''){
+  const found = cart.find(item => item.name === name);
+  if(found) found.qty++;
+  else cart.push({name, price, qty:1});
+  updateCart();
+  openCart();
+}
+
+function updateCart(){
+  const count = cart.reduce((sum,item)=>sum+item.qty,0);
+  document.querySelector('.cart-count').textContent = count;
+  const box = document.getElementById('cartItems');
+  if(!cart.length){
+    box.innerHTML='<div class="cart-empty">Giỏ hàng đang trống.</div>';
+    document.getElementById('cartTotal').textContent='0đ';
+    return;
+  }
+  box.innerHTML=cart.map((item,i)=>`
+    <div class="cart-item">
+      <div><b>${item.name}</b><br><small>${item.price} · SL ${item.qty}</small></div>
+      <button onclick="removeCart(${i})" style="border:0;background:none;color:#9c6266">Xóa</button>
+    </div>`).join('');
+  let total=0;
+  cart.forEach(item=>{
+    const n=parseInt((item.price||'0').replace(/\D/g,''))||0;
+    total += n*item.qty;
+  });
+  document.getElementById('cartTotal').textContent = total.toLocaleString('vi-VN')+'đ';
+}
+
+function removeCart(index){
+  cart.splice(index,1);
+  updateCart();
+}
+
+function openCart(){
+  document.getElementById('cartDrawer').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+}
+function checkout(){
+  if(!cart.length){alert('Giỏ hàng đang trống.');return;}
+  alert('Đặt món thành công! Đây là website demo nên chưa kết nối thanh toán.');
+}
+
+function viewProduct(name, price, desc){
+  document.getElementById('productName').textContent=name;
+  document.getElementById('productPrice').textContent=price;
+  document.getElementById('productDesc').textContent=desc;
+  document.getElementById('productAdd').onclick=()=>{addCart(name,price);closeProduct();};
+  document.getElementById('productModal').classList.add('open');
+}
+function closeProduct(){
+  document.getElementById('productModal').classList.remove('open');
+}
+function showCategory(category){
+  scrollToSection('best');
+  setTimeout(()=>alert('Đang hiển thị các món thuộc danh mục: '+category),350);
+}
+
+updateCart();
 </script>
 </body>
 </html>
